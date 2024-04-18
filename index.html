@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Screen Sharing</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Screen Sharing</h1>
+    <p>Server Status: <span id="server-status">Connecting...</span></p>
+    <p>PC Name: <span id="pc-name">{{ pc_name }}</span></p>
+    <button onclick="refresh()">Refresh</button>
+    <img id="screen-image" src="/video_feed" alt="Screen Share" />
+    <script>
+        function refresh() {
+            $("#screen-image").attr("src", "/video_feed?" + new Date().getTime());
+            $.get("/status", function(data) {
+                $("#server-status").text(data.status);
+            });
+        }
+    </script>
+</body>
+</html>
